@@ -27,11 +27,21 @@ function operate(num1, num2, callback) {
     return callback(num1, num2);
 }
 
+const arithmetic = document.querySelectorAll(".arithmetic")
+
+arithmetic.forEach(number => number.addEventListener("click", getOperator)
+)
+
+function getOperator(event) {
+        operator = event.target.textContent;
+        document.querySelector("#display").textContent = operator;
+    }
+
 const numbers = document.querySelectorAll(".number")
-numbers.forEach(number => number.addEventListener("click", inputNumber)
+numbers.forEach(number => number.addEventListener("click", getNumber)
 )
     
-function inputNumber(event) {
+function getNumber(event) {
     if (event.target.textContent === "0" && firstNumber === "0") {
         document.querySelector("#display").textContent = firstNumber;
     }
@@ -40,7 +50,7 @@ function inputNumber(event) {
         document.querySelector("#display").textContent = firstNumber.replace(/^0+/, "");
     } else {
         secondNumber += event.target.textContent;
-        document.querySelector("#display").textContent = firstNumber;
+        document.querySelector("#display").textContent = secondNumber.replace(/^0+/, "");
         console.log(secondNumber);
     }
 }
@@ -57,18 +67,21 @@ const negative = document.querySelector("#negative");
 negative.addEventListener("click", () => {
     if (operator === "") {
         firstNumber *= -1;
+        document.querySelector("#display").textContent = firstNumber
     } else {
         secondNumber *= -1;
+        document.querySelector("#display").textContent = secondNumber
     }
-    document.querySelector("#display").textContent = firstNumber
+
 })
 
 const percent = document.querySelector("#percent");
 percent.addEventListener("click", () => {
     if (operator === "") {
         firstNumber /= 100;
+        document.querySelector("#display").textContent = firstNumber
     } else {
         secondNumber /= 100;
+        document.querySelector("#display").textContent = secondNumber
     }
-    document.querySelector("#display").textContent = firstNumber
 })
