@@ -62,3 +62,13 @@ negative.addEventListener("click", () => {
     }
     document.querySelector("#display").textContent = firstNumber
 })
+
+const percent = document.querySelector("#percent");
+percent.addEventListener("click", () => {
+    if (operator === "") {
+        firstNumber /= 100;
+    } else {
+        secondNumber /= 100;
+    }
+    document.querySelector("#display").textContent = firstNumber
+})
