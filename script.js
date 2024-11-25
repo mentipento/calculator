@@ -38,7 +38,6 @@ function inputNumber(event) {
     else if (operator === "") {
         firstNumber += event.target.textContent;
         document.querySelector("#display").textContent = firstNumber.slice(1);
-        console.log(firstNumber);
     } else {
         secondNumber += event.target.textContent;
         document.querySelector("#display").textContent = firstNumber;
@@ -46,3 +45,10 @@ function inputNumber(event) {
     }
 }
 
+const clear = document.querySelector("#clear");
+clear.addEventListener("click", () => {
+    firstNumber = "0";
+    secondNumber = "";
+    operator = "";
+    document.querySelector("#display").textContent = firstNumber
+})
