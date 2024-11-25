@@ -16,7 +16,6 @@ function divide(num1, num2) {
     } else {
         return num1 / num2;
     }
-
 }
 
 let firstNumber = "0";
@@ -47,10 +46,10 @@ function getNumber(event) {
     }
     else if (operator === "") {
         firstNumber += event.target.textContent;
-        document.querySelector("#display").textContent = firstNumber.replace(/^0+/, "");
+        document.querySelector("#display").textContent = firstNumber.replace(/^0(?=\d)/, "");
     } else {
         secondNumber += event.target.textContent;
-        document.querySelector("#display").textContent = secondNumber.replace(/^0+/, "");
+        document.querySelector("#display").textContent = secondNumber.replace(/^0(?=\d)/, "");
         console.log(secondNumber);
     }
 }
@@ -83,5 +82,31 @@ percent.addEventListener("click", () => {
     } else {
         secondNumber /= 100;
         document.querySelector("#display").textContent = secondNumber
+    }
+})
+
+const equals = document.querySelector("#equals");
+equals.addEventListener("click", () => {
+    if (secondNumber === "") {
+    } else if (operator === "+") {
+        firstNumber = operate(+firstNumber, +secondNumber, add) 
+        document.querySelector("#display").textContent = firstNumber;
+        secondNumber = "";
+        operator = "";
+    } else if (operator === "-") {
+        firstNumber = operate(+firstNumber, +secondNumber, subtract) 
+        document.querySelector("#display").textContent = firstNumber;
+        secondNumber = "";
+        operator = "";
+    } else if (operator === "*") {
+        firstNumber = operate(+firstNumber, +secondNumber, multiply) 
+        document.querySelector("#display").textContent = firstNumber;
+        secondNumber = "";
+        operator = "";
+    } else if (operator === "/") {
+        firstNumber = operate(+firstNumber, +secondNumber, divide) 
+        document.querySelector("#display").textContent = firstNumber;
+        secondNumber = "";
+        operator = "";
     }
 })
