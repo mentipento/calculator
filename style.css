@@ -2,3 +2,35 @@
     border: 1px solid red;
     box-sizing: border-box;
 }
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.row div {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.row #zero {
+    display: flex;
+    flex: 2;
+}
+
+.row #display {
+    display: flex;
+    justify-content: flex-end;
+}
