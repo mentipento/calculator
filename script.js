@@ -37,7 +37,7 @@ function inputNumber(event) {
     }
     else if (operator === "") {
         firstNumber += event.target.textContent;
-        document.querySelector("#display").textContent = firstNumber.slice(1);
+        document.querySelector("#display").textContent = firstNumber.replace(/^0+/, "");
     } else {
         secondNumber += event.target.textContent;
         document.querySelector("#display").textContent = firstNumber;
@@ -50,5 +50,15 @@ clear.addEventListener("click", () => {
     firstNumber = "0";
     secondNumber = "";
     operator = "";
+    document.querySelector("#display").textContent = firstNumber
+})
+
+const negative = document.querySelector("#negative");
+negative.addEventListener("click", () => {
+    if (operator === "") {
+        firstNumber *= -1;
+    } else {
+        secondNumber *= -1;
+    }
     document.querySelector("#display").textContent = firstNumber
 })
