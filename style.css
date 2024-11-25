@@ -17,20 +17,26 @@ body {
 .row {
     display: flex;
     flex-direction: row;
+    height: 70px;
 }
 
-.row div {
+.row button {
     display: flex;
     flex: 1;
     justify-content: center;
+    min-width: 25%;
+    align-items: center;
 }
 
 .row #zero {
     display: flex;
     flex: 2;
+    min-width: 50%;
 }
 
 .row #display {
     display: flex;
     justify-content: flex-end;
+    flex: 1;
+    align-items: center;
 }
