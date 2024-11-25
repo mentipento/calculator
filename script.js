@@ -19,10 +19,27 @@ function divide(num1, num2) {
 
 }
 
-let firstNumber;
-let secondNumber;
-let operator;
+let firstNumber = "";
+let secondNumber = "";
+let operator = "";
 
 function operate(num1, num2, callback) {
-    callback(num1, num2);
+    return callback(num1, num2);
 }
+
+const numbers = document.querySelectorAll(".number")
+numbers.forEach(number => number.addEventListener("click", inputNumber)
+)
+    
+function inputNumber(event) {
+    if (operator === "") {
+        firstNumber += event.target.textContent;
+        document.querySelector("#display").textContent = firstNumber;
+        console.log(firstNumber);
+    } else {
+        secondNumber += event.target.textContent;
+        document.querySelector("#display").textContent = firstNumber;
+        console.log(secondNumber);
+    }
+}
+
