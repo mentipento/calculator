@@ -19,7 +19,7 @@ function divide(num1, num2) {
 
 }
 
-let firstNumber = "";
+let firstNumber = "0";
 let secondNumber = "";
 let operator = "";
 
@@ -32,9 +32,12 @@ numbers.forEach(number => number.addEventListener("click", inputNumber)
 )
     
 function inputNumber(event) {
-    if (operator === "") {
-        firstNumber += event.target.textContent;
+    if (event.target.textContent === "0" && firstNumber === "0") {
         document.querySelector("#display").textContent = firstNumber;
+    }
+    else if (operator === "") {
+        firstNumber += event.target.textContent;
+        document.querySelector("#display").textContent = firstNumber.slice(1);
         console.log(firstNumber);
     } else {
         secondNumber += event.target.textContent;
