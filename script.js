@@ -131,3 +131,34 @@ equals.addEventListener("click", () => {
 function updateDisplay(number) {
     document.querySelector("#display").textContent = number;
 }
+
+const numButtons = {
+    "1": one,
+    "2": two,
+    "3": three,
+    "4": four,
+    "5": five,
+    "6": six,
+    "7": seven,
+    "8": eight,
+    "9": nine,
+    "0": zero,
+    "+": plus,
+    "-": minus,
+    "*": multiplication,
+    "/": division,
+    ".": decimal,
+    ",": decimal,
+    "Enter": equals,
+    "Escape": clear,
+    "–": negative,
+    "%": percent,
+}
+
+document.addEventListener("keydown", (event) => {
+    if (Object.keys(numButtons).includes(event.key)) {
+        numButtons[event.key].click();
+    }
+    }
+)
+
