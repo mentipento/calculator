@@ -44,6 +44,10 @@
 
 You can try the live version of the calculator [here](https://mentipento.github.io/calculator/).
 
+## Credits
+
+- **Backspace icon**: [Backspace icons created by Pixel perfect - Flaticon](https://www.flaticon.com/free-icons/backspace)
+
 ## Contribution Guidelines
 
 Contributions are welcome! If you have suggestions or improvements, feel free to:

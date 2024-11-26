@@ -97,16 +97,8 @@ negative.addEventListener("click", () => {
 
 })
 
-const percent = document.querySelector("#percent");
-percent.addEventListener("click", () => {
-    if (operator === "") {
-        firstNumber /= 100;
-        updateDisplay(firstNumber);
-    } else {
-        secondNumber /= 100;
-        updateDisplay(secondNumber);
-    }
-})
+const deleteLast = document.querySelector("#delete");
+deleteLast.addEventListener("click", () => handleBackspace());
 
 const equals = document.querySelector("#equals");
 
