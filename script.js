@@ -21,7 +21,7 @@ function divide(num1, num2) {
 let firstNumber = "0";
 let secondNumber = "";
 let operator = "";
-let resultCalculated = "false"
+let resultCalculated = false
 
 function operate(num1, num2, callback) {
     let result = callback(num1, num2);
@@ -48,8 +48,8 @@ numbers.forEach(number => number.addEventListener("click", getNumber)
     
 function getNumber(event) {
     if (resultCalculated === true) {
-        secondNumber += event.target.textContent;
-        updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
+        firstNumber = event.target.textContent;
+        updateDisplay(firstNumber.replace(/^0(?=\d)/, ""));
         resultCalculated = false;
     } else {
     if (event.target.textContent === "0" && firstNumber === "0") {
