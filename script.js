@@ -60,7 +60,6 @@ function getNumber(event) {
     } else {
         secondNumber += event.target.textContent;
         updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
-        console.log(secondNumber);
     }
 }}
 

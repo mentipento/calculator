@@ -13,6 +13,7 @@ body {
     flex-direction: column;
     width: 400px;
     border: 3px solid black;
+    border-radius: 5px;
 }
 
 .row {
@@ -40,4 +41,34 @@ body {
     justify-content: flex-end;
     flex: 1;
     align-items: center;
+    font-size: 32px;
+    border: 1px solid black;
+    padding-right: 15px;
+}
+
+button {
+    font-size: 24px;
+    border: 1px, solid, black;
+    border-radius: 3px;
+    
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.arithmetic,
+#equals {
+    background-color: #AEE5D8;
+}
+
+.number,
+#decimal {
+    background-color: #E5D0E3;
+}
+
+#clear,
+#negative,
+#percent {
+    background-color: #E7E5E5
 }
