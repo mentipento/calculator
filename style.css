@@ -44,6 +44,7 @@ body {
     font-size: 32px;
     border: 1px solid black;
     padding-right: 15px;
+    overflow: hidden;
 }
 
 button {

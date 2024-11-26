@@ -48,8 +48,8 @@ numbers.forEach(number => number.addEventListener("click", getNumber)
     
 function getNumber(event) {
     if (resultCalculated === true) {
-        firstNumber = event.target.textContent;
-        updateDisplay(firstNumber.replace(/^0(?=\d)/, ""));
+        secondNumber = event.target.textContent;
+        updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
         resultCalculated = false;
     } else {
     if (event.target.textContent === "0" && firstNumber === "0") {
