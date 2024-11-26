@@ -21,6 +21,7 @@ function divide(num1, num2) {
 let firstNumber = "0";
 let secondNumber = "";
 let operator = "";
+let resultCalculated = "false"
 
 function operate(num1, num2, callback) {
     return callback(num1, num2);
@@ -34,10 +35,11 @@ arithmetic.forEach(number => number.addEventListener("click", getOperator)
 function getOperator(event) {
         operator = event.target.textContent;
         if (secondNumber !== "") {
-            firstNumber = operate(+firstNumber, +secondNumber, add) 
+            firstNumber = operate(+firstNumber, +secondNumber, operations[operator]);
             document.querySelector("#display").textContent = firstNumber;
             secondNumber = "";
-            operator = "";
+        } else if (firstNumber !== "0") {
+            operator = event.target.textContent;
     }
 }
 
@@ -46,6 +48,11 @@ numbers.forEach(number => number.addEventListener("click", getNumber)
 )
     
 function getNumber(event) {
+    if (resultCalculated === true) {
+        firstNumber = event.target.textContent;
+        document.querySelector("#display").textContent = firstNumber;
+        resultCalculated = false;
+    } else {
     if (event.target.textContent === "0" && firstNumber === "0") {
         document.querySelector("#display").textContent = firstNumber;
     }
@@ -57,7 +64,7 @@ function getNumber(event) {
         document.querySelector("#display").textContent = secondNumber.replace(/^0(?=\d)/, "");
         console.log(secondNumber);
     }
-}
+}}
 
 const clear = document.querySelector("#clear");
 clear.addEventListener("click", () => {
@@ -102,9 +109,10 @@ const operations = {
 equals.addEventListener("click", () => {
     if (secondNumber === "") {
         return;
-    }
+    } else {
     firstNumber = operate(+firstNumber, +secondNumber, operations[operator]) 
     document.querySelector("#display").textContent = firstNumber;
     secondNumber = "";
     operator = "";
-})
+    resultCalculated = true;
+}})
