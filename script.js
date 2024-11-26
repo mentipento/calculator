@@ -30,39 +30,37 @@ function operate(num1, num2, callback) {
 
 const arithmetic = document.querySelectorAll(".arithmetic")
 
-arithmetic.forEach(number => number.addEventListener("click", getOperator)
-)
+arithmetic.forEach(number => number.addEventListener("click", getOperator))
 
 function getOperator(event) {
-        operator = event.target.textContent;
-        if (secondNumber !== "") {
-            firstNumber = operate(+firstNumber, +secondNumber, operations[operator]);
-            updateDisplay(firstNumber);
-            secondNumber = "";
-        } 
+    operator = event.target.textContent;
+    if (secondNumber !== "") {
+        firstNumber = operate(+firstNumber, +secondNumber, operations[operator]);
+        updateDisplay(firstNumber);
+        secondNumber = "";
+    }
 }
 
 const numbers = document.querySelectorAll(".number")
-numbers.forEach(number => number.addEventListener("click", getNumber)
-)
-    
+numbers.forEach(number => number.addEventListener("click", getNumber))
+
 function getNumber(event) {
     if (resultCalculated === true) {
         secondNumber = event.target.textContent;
         updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
         resultCalculated = false;
     } else {
-    if (event.target.textContent === "0" && firstNumber === "0") {
-        updateDisplay(firstNumber);
+        if (event.target.textContent === "0" && firstNumber === "0") {
+            updateDisplay(firstNumber);
+        } else if (operator === "") {
+            firstNumber += event.target.textContent;
+            updateDisplay(firstNumber.replace(/^0(?=\d)/, ""));
+        } else {
+            secondNumber += event.target.textContent;
+            updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
+        }
     }
-    else if (operator === "") {
-        firstNumber += event.target.textContent;
-        updateDisplay(firstNumber.replace(/^0(?=\d)/, ""));
-    } else {
-        secondNumber += event.target.textContent;
-        updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
-    }
-}}
+}
 
 const decimal = document.querySelector("#decimal");
 decimal.addEventListener("click", (event) => {
@@ -74,7 +72,7 @@ decimal.addEventListener("click", (event) => {
     } else {
         secondNumber += event.target.textContent;
         updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
-        
+
     }
 
 })
@@ -126,7 +124,8 @@ equals.addEventListener("click", () => {
         secondNumber = "";
         operator = "";
         resultCalculated = true;
-}})
+    }
+})
 
 function updateDisplay(number) {
     document.querySelector("#display").textContent = number;
@@ -161,8 +160,7 @@ document.addEventListener("keydown", (event) => {
     } else if (event.key === "Backspace") {
         handleBackspace()
     }
-    }
-)
+})
 
 function handleBackspace() {
     if (secondNumber !== "") {
@@ -173,4 +171,3 @@ function handleBackspace() {
         updateDisplay(firstNumber.replace(/^0(?=\d)/, ""));
     }
 }
-
