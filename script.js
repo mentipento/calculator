@@ -158,7 +158,19 @@ const numButtons = {
 document.addEventListener("keydown", (event) => {
     if (Object.keys(numButtons).includes(event.key)) {
         numButtons[event.key].click();
+    } else if (event.key === "Backspace") {
+        handleBackspace()
     }
     }
 )
+
+function handleBackspace() {
+    if (secondNumber !== "") {
+        secondNumber = secondNumber.slice(0, -1)
+        updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
+    } else if (firstNumber !== "") {
+        firstNumber = firstNumber.slice(0, -1)
+        updateDisplay(firstNumber.replace(/^0(?=\d)/, ""));
+    }
+}
 
