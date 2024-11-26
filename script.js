@@ -25,7 +25,7 @@ let resultCalculated = "false"
 
 function operate(num1, num2, callback) {
     let result = callback(num1, num2);
-    return Math.round(result * 1e100) / 1e100
+    return Math.round(result * 1e10) / 1e10
 }
 
 const arithmetic = document.querySelectorAll(".arithmetic")
