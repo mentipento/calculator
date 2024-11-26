@@ -24,7 +24,8 @@ let operator = "";
 let resultCalculated = "false"
 
 function operate(num1, num2, callback) {
-    return callback(num1, num2);
+    let result = callback(num1, num2);
+    return Math.round(result * 1e100) / 1e100
 }
 
 const arithmetic = document.querySelectorAll(".arithmetic")
@@ -62,6 +63,21 @@ function getNumber(event) {
         updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
     }
 }}
+
+const decimal = document.querySelector("#decimal");
+decimal.addEventListener("click", (event) => {
+    if (document.querySelector("#display").textContent.includes(".")) {
+        return;
+    } else if (operator === "") {
+        firstNumber += event.target.textContent;
+        updateDisplay(firstNumber.replace(/^0(?=\d)/, ""));
+    } else {
+        secondNumber += event.target.textContent;
+        updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
+        
+    }
+
+})
 
 const clear = document.querySelector("#clear");
 clear.addEventListener("click", () => {
