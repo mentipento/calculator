@@ -33,8 +33,13 @@ arithmetic.forEach(number => number.addEventListener("click", getOperator)
 
 function getOperator(event) {
         operator = event.target.textContent;
-        document.querySelector("#display").textContent = operator;
+        if (secondNumber !== "") {
+            firstNumber = operate(+firstNumber, +secondNumber, add) 
+            document.querySelector("#display").textContent = firstNumber;
+            secondNumber = "";
+            operator = "";
     }
+}
 
 const numbers = document.querySelectorAll(".number")
 numbers.forEach(number => number.addEventListener("click", getNumber)
@@ -86,27 +91,20 @@ percent.addEventListener("click", () => {
 })
 
 const equals = document.querySelector("#equals");
+
+const operations = {
+    "+": add,
+    "-": subtract,
+    "*": multiply,
+    "/": divide,
+};
+
 equals.addEventListener("click", () => {
     if (secondNumber === "") {
-    } else if (operator === "+") {
-        firstNumber = operate(+firstNumber, +secondNumber, add) 
-        document.querySelector("#display").textContent = firstNumber;
-        secondNumber = "";
-        operator = "";
-    } else if (operator === "-") {
-        firstNumber = operate(+firstNumber, +secondNumber, subtract) 
-        document.querySelector("#display").textContent = firstNumber;
-        secondNumber = "";
-        operator = "";
-    } else if (operator === "*") {
-        firstNumber = operate(+firstNumber, +secondNumber, multiply) 
-        document.querySelector("#display").textContent = firstNumber;
-        secondNumber = "";
-        operator = "";
-    } else if (operator === "/") {
-        firstNumber = operate(+firstNumber, +secondNumber, divide) 
-        document.querySelector("#display").textContent = firstNumber;
-        secondNumber = "";
-        operator = "";
+        return;
     }
+    firstNumber = operate(+firstNumber, +secondNumber, operations[operator]) 
+    document.querySelector("#display").textContent = firstNumber;
+    secondNumber = "";
+    operator = "";
 })
