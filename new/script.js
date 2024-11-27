@@ -1,5 +1,5 @@
 
-const maxInputLength = 12;
+const maxInputLength = 24;
 let currentNumber = "0";
 let previousNumber = "";
 let operator = "";
@@ -21,8 +21,8 @@ function handleNumBtnClick(event){
 }
 
 function appendNumber(number) {
-    if (currentNumber.includes(".") && number === ".") 
-        return
+    if ((currentNumber.includes(".") && number === ".") || currentNumber.length >= maxInputLength)
+        return;
     currentNumber += number;
     updateDisplay(currentNumber);
 }
