@@ -1,4 +1,3 @@
-
 const maxInputLength = 24;
 let currentNumber = "0";
 let previousNumber = "";
@@ -21,10 +20,44 @@ function handleNumBtnClick(event){
 }
 
 function appendNumber(number) {
-    if ((currentNumber.includes(".") && number === ".") || currentNumber.length >= maxInputLength)
+    if ((currentNumber.includes(".") && number === ".") || currentNumber.length >= maxInputLength) {
         return;
+    }
+
     currentNumber += number;
     updateDisplay(currentNumber);
+}
+
+// Operator buttons + - * /
+
+const arithmetic = document.querySelectorAll(".arithmetic");
+
+arithmetic.forEach(number => number.addEventListener("click", getOperator))
+
+function getOperator(event) {
+    if (previousNumber !== "") {
+        calculate()
+    }
+    operator = event.target.textContent;
+    previousNumber = document.querySelector("#display").textContent;
+    currentNumber = "0"
+    }
+
+// Equal button
+
+const equals = document.querySelector("#equals");
+equals.addEventListener("click", () => calculate())
+
+function calculate() {
+
+    currentNumber = +currentNumber;
+    previousNumber = +previousNumber;
+
+    let result = operate(previousNumber, currentNumber, operator)
+    result = Math.round(result * 1e10) / 1e10
+    updateDisplay(result.toString());
+    previousNumber = result;
+    currentNumber = "0";
 }
 
 
@@ -40,7 +73,7 @@ function clearInput() {
     updateDisplay(currentNumber)
 }
 
-// Delete button
+// Backspace button
 
 const deleteLast = document.querySelector("#delete");
 
@@ -63,3 +96,39 @@ function switchSign() {
 }
 
 negative.addEventListener("click", () => switchSign())
+
+// --------------------------
+// Math Functions
+// --------------------------
+
+function add(num1, num2) {
+    return num1 + num2;
+}
+
+function subtract(num1, num2) {
+    return num1 - num2;
+}
+
+function multiply(num1, num2) {
+    return num1 * num2;
+}
+
+function divide(num1, num2) {
+        return num1 / num2;
+    }
+
+function operate(num1, num2, operator) {
+    switch (operator) {
+        case '+':
+            return add(num1, num2);
+        case '-':
+            return subtract(num1, num2);
+        case '*':
+            return multiply(num1, num2);
+        case '/':
+            return divide(num1, num2);
+    }
+}
+
+
+
