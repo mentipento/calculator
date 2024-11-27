@@ -5,8 +5,8 @@ let operator = "";
 let resultCalculated = false;
 
 function updateDisplay(number) {
-    // regex removes leading "0"s unless a decimal point follows
-    document.querySelector("#display").textContent = number.replace(/^0+(?=\d)/, "");
+    
+    document.querySelector("#display").textContent = number.replace(/^0+(?=\d)/, ""); // regex removes leading "0"s unless a decimal point follows
 }
 
 // Number buttons (including decimal .)
@@ -20,11 +20,16 @@ function handleNumBtnClick(event){
 }
 
 function appendNumber(number) {
+    if (resultCalculated) {
+        currentNumber = number; // prevent attaching digits to old number
+        resultCalculated = false;
+    } else {
     if ((currentNumber.includes(".") && number === ".") || currentNumber.length >= maxInputLength) {
         return;
     }
 
     currentNumber += number;
+}
     updateDisplay(currentNumber);
 }
 
@@ -35,13 +40,15 @@ const arithmetic = document.querySelectorAll(".arithmetic");
 arithmetic.forEach(number => number.addEventListener("click", getOperator))
 
 function getOperator(event) {
-    if (previousNumber !== "") {
-        calculate()
+    if (resultCalculated) {
+        resultCalculated = false;
+    } else if (previousNumber !== "") {
+        calculate();
     }
     operator = event.target.textContent;
     previousNumber = document.querySelector("#display").textContent;
-    currentNumber = "0"
-    }
+    currentNumber = "0";
+}
 
 // Equal button
 
@@ -58,6 +65,7 @@ function calculate() {
     updateDisplay(result.toString());
     previousNumber = result;
     currentNumber = "0";
+    resultCalculated = true;
 }
 
 
