@@ -1,3 +1,113 @@
+// --------------------------
+// Global Variables
+// --------------------------
+
+const maxInputLength = 24;
+let currentNumber = "0";
+let previousNumber = "";
+let operator = "";
+let resultCalculated = false;
+
+// --------------------------
+// DOM Elements
+// --------------------------
+
+const display = document.querySelector("#display");
+const numbers = document.querySelectorAll(".number");
+const arithmetic = document.querySelectorAll(".arithmetic");
+const equals = document.querySelector("#equals");
+const clear = document.querySelector("#clear");
+const deleteLast = document.querySelector("#backspace");
+const negative = document.querySelector("#negative");
+
+// --------------------------
+// Helper Functions
+// --------------------------
+
+function updateDisplay(number) {
+    display.textContent = number.replace(/^0+(?=\d)/, ""); // Removes leading "0"s unless a decimal point follows
+}
+
+function appendNumber(number) {
+    if (resultCalculated) {
+        currentNumber = number; // Prevent attaching digits to old number
+        resultCalculated = false;
+    } else {
+        if ((currentNumber.includes(".") && number === ".") || currentNumber.length >= maxInputLength) {
+            return;
+        }
+        currentNumber += number;
+    }
+    updateDisplay(currentNumber);
+}
+
+function getOperator(event) {
+    if (resultCalculated) {
+        resultCalculated = false;
+    } else if (previousNumber !== "") {
+        calculate();
+    }
+    operator = event.target.textContent;
+    previousNumber = display.textContent;
+    currentNumber = "0";
+}
+
+function calculate() {
+    if (previousNumber === "") {
+        return;
+    }
+
+    currentNumber = +currentNumber;
+    previousNumber = +previousNumber;
+
+    let result = operate(previousNumber, currentNumber, operator);
+    result = Math.round(result * 1e10) / 1e10;
+    updateDisplay(result.toString());
+    previousNumber = result;
+    currentNumber = "0";
+    resultCalculated = true;  // Verhindert, dass weitere Zahlen nach Berechnung hinzugefügt werden
+}
+
+
+function clearInput() {
+    currentNumber = "0";
+    previousNumber = "";
+    operator = "";
+    updateDisplay(currentNumber);
+}
+
+function handleBackspace() {
+    if (currentNumber !== "0") {
+        currentNumber = currentNumber.slice(0, -1);
+        updateDisplay(currentNumber);
+    }
+}
+
+function switchSign() {
+    currentNumber = (Number(currentNumber) * -1).toString();
+    updateDisplay(currentNumber);
+}
+
+function handleNumBtnClick(event) {
+    const number = event.target.textContent;
+    appendNumber(number);
+}
+
+// --------------------------
+// Event Listeners
+// --------------------------
+
+numbers.forEach(number => number.addEventListener("click", handleNumBtnClick));
+arithmetic.forEach(number => number.addEventListener("click", getOperator));
+equals.addEventListener("click", () => calculate());
+clear.addEventListener("click", () => clearInput());
+deleteLast.addEventListener("click", () => handleBackspace());
+negative.addEventListener("click", () => switchSign());
+
+// --------------------------
+// Math Functions
+// --------------------------
+
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -11,117 +121,25 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    if (num2 === 0) {
-        return "shame on you!"
-    } else {
-        return num1 / num2;
+    return num1 / num2;
+}
+
+function operate(num1, num2, operator) {
+    switch (operator) {
+        case '+':
+            return add(num1, num2);
+        case '-':
+            return subtract(num1, num2);
+        case '*':
+            return multiply(num1, num2);
+        case '/':
+            return divide(num1, num2);
     }
 }
 
-let firstNumber = "0";
-let secondNumber = "";
-let operator = "";
-let resultCalculated = false
-
-function operate(num1, num2, callback) {
-    let result = callback(num1, num2);
-    return Math.round(result * 1e10) / 1e10
-}
-
-const arithmetic = document.querySelectorAll(".arithmetic")
-
-arithmetic.forEach(number => number.addEventListener("click", getOperator))
-
-function getOperator(event) {
-    operator = event.target.textContent;
-    if (secondNumber !== "") {
-        firstNumber = operate(+firstNumber, +secondNumber, operations[operator]);
-        updateDisplay(firstNumber);
-        secondNumber = "";
-    }
-}
-
-const numbers = document.querySelectorAll(".number")
-numbers.forEach(number => number.addEventListener("click", getNumber))
-
-function getNumber(event) {
-    if (resultCalculated === true) {
-        secondNumber = event.target.textContent;
-        updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
-        resultCalculated = false;
-    } else {
-        if (event.target.textContent === "0" && firstNumber === "0") {
-            updateDisplay(firstNumber);
-        } else if (operator === "") {
-            firstNumber += event.target.textContent;
-            updateDisplay(firstNumber.replace(/^0(?=\d)/, ""));
-        } else {
-            secondNumber += event.target.textContent;
-            updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
-        }
-    }
-}
-
-const decimal = document.querySelector("#decimal");
-decimal.addEventListener("click", (event) => {
-    if (document.querySelector("#display").textContent.includes(".")) {
-        return;
-    } else if (operator === "") {
-        firstNumber += event.target.textContent;
-        updateDisplay(firstNumber.replace(/^0(?=\d)/, ""));
-    } else {
-        secondNumber += event.target.textContent;
-        updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
-
-    }
-
-})
-
-const clear = document.querySelector("#clear");
-clear.addEventListener("click", () => {
-    firstNumber = "0";
-    secondNumber = "";
-    operator = "";
-    updateDisplay(firstNumber)
-})
-
-const negative = document.querySelector("#negative");
-negative.addEventListener("click", () => {
-    if (operator === "") {
-        firstNumber *= -1;
-        updateDisplay(firstNumber);
-    } else {
-        secondNumber *= -1;
-        updateDisplay(secondNumber);
-    }
-
-})
-
-const deleteLast = document.querySelector("#delete");
-deleteLast.addEventListener("click", () => handleBackspace());
-
-const equals = document.querySelector("#equals");
-
-const operations = {
-    "+": add,
-    "-": subtract,
-    "*": multiply,
-    "/": divide,
-};
-
-equals.addEventListener("click", () => {
-    if (secondNumber !== "") {
-        firstNumber = operate(+firstNumber, +secondNumber, operations[operator]);
-        updateDisplay(firstNumber);
-        secondNumber = "";
-        operator = "";
-        resultCalculated = true;
-    }
-})
-
-function updateDisplay(number) {
-    document.querySelector("#display").textContent = number;
-}
+// --------------------------
+// Event Listeners for Keyboard Input
+// --------------------------
 
 const numButtons = {
     "1": one,
@@ -143,23 +161,28 @@ const numButtons = {
     "Enter": equals,
     "Escape": clear,
     "–": negative,
-    "%": percent,
-}
+    "Backspace": backspace,
+    "Numpad1": one,
+    "Numpad2": two,
+    "Numpad3": three,
+    "Numpad4": four,
+    "Numpad5": five,
+    "Numpad6": six,
+    "Numpad7": seven,
+    "Numpad8": eight,
+    "Numpad9": nine,
+    "Numpad0": zero,
+    "NumpadAdd": plus,
+    "NumpadSubtract": minus,
+    "NumpadMultiply": multiplication,
+    "NumpadDivide": division,
+    "NumpadDecimal": decimal,
+    "NumpadEnter": equals,
+    "NumpadEscape": clear
+};
 
 document.addEventListener("keydown", (event) => {
     if (Object.keys(numButtons).includes(event.key)) {
         numButtons[event.key].click();
-    } else if (event.key === "Backspace") {
-        handleBackspace()
     }
-})
-
-function handleBackspace() {
-    if (secondNumber !== "") {
-        secondNumber = secondNumber.slice(0, -1)
-        updateDisplay(secondNumber.replace(/^0(?=\d)/, ""));
-    } else if (firstNumber !== "") {
-        firstNumber = firstNumber.slice(0, -1)
-        updateDisplay(firstNumber.replace(/^0(?=\d)/, ""));
-    }
-}
+});
