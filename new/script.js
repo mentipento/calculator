@@ -57,6 +57,10 @@ equals.addEventListener("click", () => calculate())
 
 function calculate() {
 
+    if (previousNumber === "") {
+        return;
+    }
+
     currentNumber = +currentNumber;
     previousNumber = +previousNumber;
 
@@ -83,7 +87,7 @@ function clearInput() {
 
 // Backspace button
 
-const deleteLast = document.querySelector("#delete");
+const deleteLast = document.querySelector("#backspace");
 
 deleteLast.addEventListener("click", () => handleBackspace());
 
@@ -138,5 +142,50 @@ function operate(num1, num2, operator) {
     }
 }
 
+// Keyboard input
 
+const numButtons = {
+    "1": one,
+    "2": two,
+    "3": three,
+    "4": four,
+    "5": five,
+    "6": six,
+    "7": seven,
+    "8": eight,
+    "9": nine,
+    "0": zero,
+    "+": plus,
+    "-": minus,
+    "*": multiplication,
+    "/": division,
+    ".": decimal,
+    ",": decimal,
+    "Enter": equals,
+    "Escape": clear,
+    "–": negative,
+    "Backspace": backspace,
+    "Numpad1": one,
+    "Numpad2": two,
+    "Numpad3": three,
+    "Numpad4": four,
+    "Numpad5": five,
+    "Numpad6": six,
+    "Numpad7": seven,
+    "Numpad8": eight,
+    "Numpad9": nine,
+    "Numpad0": zero,
+    "NumpadAdd": plus,
+    "NumpadSubtract": minus,
+    "NumpadMultiply": multiplication,
+    "NumpadDivide": division,
+    "NumpadDecimal": decimal,
+    "NumpadEnter": equals,
+    "NumpadEscape": clear
+};
 
+document.addEventListener("keydown", (event) => {
+    if (Object.keys(numButtons).includes(event.key)) {
+        numButtons[event.key].click();
+    } 
+})
